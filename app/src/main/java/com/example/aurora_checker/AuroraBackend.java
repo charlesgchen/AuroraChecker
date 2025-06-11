@@ -30,7 +30,7 @@ class AuroraBackend {
     }
 
     void updateinfo () {
-        // downloads the information
+        // downloads (pulls) the information
         
         try {
             InputStream in = new URI(url).toURL().openStream();
@@ -63,6 +63,9 @@ class AuroraBackend {
         if (info.contains(str_start) == false) {
             return;
         }
+        if (info.contains(str_end) == false) {
+            return;
+        }
         info = info.substring(info.indexOf(str_start));
         info = info.substring(0, info.indexOf(str_end));
         while (info.indexOf("             ") != 0) {
@@ -74,6 +77,7 @@ class AuroraBackend {
     }
 
     private int getRow(final ZonedDateTime datetime) {
+        // Returns the row of the hour in the given datetime
         // Assume the hour can be checked from first column
 
         if (info == null) {
@@ -108,7 +112,7 @@ class AuroraBackend {
     }
 
     private int getCol(final ZonedDateTime datetime) {
-        // Returns the column in info using the given datetime
+        // Returns the column of the date in the given datetime
         // Assume the info_goal can be found in the first row of info
         
         if (info == null) {
