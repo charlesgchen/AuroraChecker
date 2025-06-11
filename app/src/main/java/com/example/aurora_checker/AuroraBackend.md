@@ -1,6 +1,6 @@
 # Manual to AuroraBackend
 
-The class AuroraBackend has two fields and several methods.
+The class AuroraBackend has three fields and several methods.
 
 ## Fields
 
