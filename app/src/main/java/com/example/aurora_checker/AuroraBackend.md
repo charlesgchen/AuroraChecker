@@ -11,12 +11,12 @@ The field `url` is a string to the NOAA product for its three day aurora forecas
 ## `info`
 
 The field `info` is a string that contains the downloaded information from `url`.
-It will be used and manipulated in various subsequent methods.
+It will be used and manipulated in various subsequent methods. This field is private. Use the getter `getinfo()`.
 
 ## `tonight`
 
 The field `tonight` is a string that contains what hours tonight 1800-0600 that the aurora is active.
-It is probably the field you should put into the notification body.
+It is probably the field you should put into the notification body. This field is private. Use the getter `gettonight()`
 
 # Methods
 
@@ -58,4 +58,30 @@ This method returns a string on how active an aurora is on the given `datetime`.
 
 ## `activeTonight(ZonedDateTime datetime)`
 
-This method modifies `tonight` so that it will contain all the hours that the aurora will be active on.
+This method modifies `tonight` so that it will contain all the hours that the aurora will be active on. It returns `void`.
+
+# Usage
+
+The following pseudocode should be run after 0030hrs UTC and 1230hrs UTC.
+
+The intended usage should be in pseudocode:
+
+    AuroraBackend = new AuroraBackend();
+    if (isInternetGood() == true) {
+        // make sure to check for internet connection before executing next line
+        aurora.updateinfo(); // note this prints an exception if it fails and info remains as null.
+    }
+    else {
+        waitforInternet();
+    }
+    if (aurora.getinfo() == null) {
+        // implement the case if info for some reason cannot be downloaded. Stop advancing out of this if block.
+    }
+    // here it assumes aurora.info has some useful information about the aurora activity.
+    aurora.parseinfo();
+    ZonedDateTime when = ZonedDateTime.now();
+    aurora.activeTonight(when);
+    if (aurora.gettonight() != null) {
+        // make a notification with aurora.gettonight()
+    }
+
