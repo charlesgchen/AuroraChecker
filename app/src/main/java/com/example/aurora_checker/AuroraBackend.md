@@ -1,70 +1,72 @@
 # Manual to AuroraBackend
 
-The class AuroraBackend has two fields and several methods.
+The class AuroraBackend has three fields and several methods.
 
-# Fields
+## Fields
 
-## `url`
+### `url`
 
 The field `url` is a string to the NOAA product for its three day aurora forecast.
 
-## `info`
+### `info`
 
 The field `info` is a string that contains the downloaded information from `url`.
 It will be used and manipulated in various subsequent methods. This field is private. Use the getter `getinfo()`.
 
-## `tonight`
+### `tonight`
 
 The field `tonight` is a string that contains what hours tonight 1800-0600 that the aurora is active.
-It is probably the field you should put into the notification body. This field is private. Use the getter `gettonight()`
+It is probably the field you should put into the notification body. This field is private. Use the getter `gettonight()`.
 
-# Methods
+## Methods
 
-## `getinfo()`
+### `getinfo()`
 
 Ths method is a getter for `info`. Useful for debugging `parseinfo()`.
 
-## `gettonight()`
+### `gettonight()`
 
 This method is a getter for `tonight`. You should use this if you want to know `tonight`.
 
-## `updateinfo()`
+### `updateinfo()`
 
-This method downloads (pulls) the information from `url` into `info`.
+This method downloads (pulls) the information from `url` into `info`. It returns `void`.
+It will fail with output to `System.out` if the information cannot be downloaded.
 
-## `parseinfo()`
+### `parseinfo()`
 
-This method parses `info` into something more useful for later usage. This modifies `info` permanently.
+This method parses `info` into something more useful for later usage. This modifies `info` permanently. It returns `void`.
 
-## `getRow(ZonedDateTime datetime)`
+### `getRow(ZonedDateTime datetime)`
 
 This method returns the row of the hour in the given `datetime`. This method is private.
 
-## `getCol(ZonedDateTime datetime)`
+### `getCol(ZonedDateTime datetime)`
 
 This method returns the column of the date in the given `datetime`. This method is private.
 
-## `getKp(ZonedDateTime datetime)`
+### `getKp(ZonedDateTime datetime)`
 
 This method returns the aurora Kp value of the given `datetime`. Returns `-1` if `datetime` or `info` is insufficient.
 
-## `getGScale(double kp)`
+### `getGScale(double kp)`
 
-This method returns a G Scale number for the Kp value `kp`.
+This method returns a G Scale integer for the Kp value `kp`. It returns `-1` if `kp` is invalid.
 
-## `activeOn(ZonedDateTime datetime)`
+### `activeOn(ZonedDateTime datetime)`
 
-This method returns a string on how active an aurora is on the given `datetime`.
+This method returns a string on how active an aurora is on the given `datetime`. It returns `no` if `info` or `datetime` is insufficient.
 
-## `activeTonight(ZonedDateTime datetime)`
+### `activeTonight(ZonedDateTime datetime)`
 
-This method modifies `tonight` so that it will contain all the hours that the aurora will be active on. It returns `void`.
+This method modifies `tonight` so that it will contain all the hours that the aurora will be active. It returns `void`. It uses the previous methods as helpers.
+This should be the one you are looking for.
 
-# Usage
+## Usage
 
 The following pseudocode should be run after 0030hrs UTC and 1230hrs UTC.
 
-The intended usage should be in pseudocode:
+One possible usage in pseudocode:
 
     AuroraBackend = new AuroraBackend();
     if (isInternetGood() == true) {
