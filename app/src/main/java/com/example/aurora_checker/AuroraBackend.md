@@ -16,7 +16,7 @@ It will be used and manipulated in various subsequent methods. This field is pri
 ### `tonight`
 
 The field `tonight` is a string that contains what hours tonight 1800-0600 that the aurora is active.
-It is probably the field you should put into the notification body. This field is private. Use the getter `gettonight()`
+It is probably the field you should put into the notification body. This field is private. Use the getter `gettonight()`.
 
 ## Methods
 
@@ -31,6 +31,7 @@ This method is a getter for `tonight`. You should use this if you want to know `
 ### `updateinfo()`
 
 This method downloads (pulls) the information from `url` into `info`. It returns `void`.
+It will fail with output to `System.out` if the information cannot be downloaded.
 
 ### `parseinfo()`
 
@@ -50,15 +51,16 @@ This method returns the aurora Kp value of the given `datetime`. Returns `-1` if
 
 ### `getGScale(double kp)`
 
-This method returns a G Scale number for the Kp value `kp`.
+This method returns a G Scale integer for the Kp value `kp`. It returns `-1` if `kp` is invalid.
 
 ### `activeOn(ZonedDateTime datetime)`
 
-This method returns a string on how active an aurora is on the given `datetime`.
+This method returns a string on how active an aurora is on the given `datetime`. It returns `no` if `info` or `datetime` is insufficient.
 
 ### `activeTonight(ZonedDateTime datetime)`
 
-This method modifies `tonight` so that it will contain all the hours that the aurora will be active. It returns `void`.
+This method modifies `tonight` so that it will contain all the hours that the aurora will be active. It returns `void`. It uses the previous methods as helpers.
+This should be the one you are looking for.
 
 ## Usage
 
