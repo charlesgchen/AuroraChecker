@@ -119,7 +119,7 @@ class AuroraBackend {
             return -1;
         }
         final ZonedDateTime zdt = datetime.withZoneSameInstant(ZoneId.of("Z"));
-        String str_goal = zdt.getMonth().getDisplayName(TextStyle.valueOf("SHORT"), Locale.of("ENGLISH")).substring(0,3) + " ";
+        String str_goal = zdt.getMonth().getDisplayName(TextStyle.valueOf("SHORT"), Locale.US).substring(0,3) + " ";
         str_goal = str_goal.toUpperCase();
         if (zdt.getDayOfMonth() < 10) {
             str_goal = str_goal + "0";
